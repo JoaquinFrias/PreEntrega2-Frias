@@ -15,13 +15,15 @@ import AdbIcon from '@mui/icons-material/Adb';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 
 import CartWidget from './CartWidget';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const pages = ['Nosotros', 'Productos', 'Contacto'];
+const pages = [{enlace:'/categoria/nuevos', nombre:'Nuevos'}, {enlace:'/categoria/oferta', nombre:'Ofertas'}, {enlace:'/categoria/vendidos', nombre:'Mas Vendidos'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,12 +44,11 @@ function NavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <DirectionsBikeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
+          
+          <NavLink className='links' to='/'>
+            <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -57,10 +58,12 @@ function NavBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
+            >
+            <DirectionsBikeIcon sx={{ display: { xs: 'none', md: 'flex', fontSize: 35 }, mr: 1 }} />
             -Ogro Bikes-
-          </Typography>
-
+            </Typography>
+          </NavLink>
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -90,19 +93,21 @@ function NavBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={()=>{navigate(`${page.enlace}`)}}>
+
+                  <NavLink className='links_responsive' to={page.enlace}> {page.nombre} </NavLink>
+                  
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+          <NavLink className='links' to='/'>
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -114,18 +119,19 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            -LOGO-
+            
           </Typography>
+          </NavLink>
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+          {pages.map((page, index) => (
+                <MenuItem key={index} onClick={()=>{navigate(`${page.enlace}`)}}>
+
+                  <NavLink className='links' to={page.enlace}> {page.nombre} </NavLink>
+                  
+                </MenuItem>
+              ))}
           </Box>
           <CartWidget counter={2}/>
           
