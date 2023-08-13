@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-const ItemCount = ({initial, stock, onAdd}) => {
+const ItemCount = ({initial, stock, onAdd, count, setCount}) => {
 
-    const [count, setCount]= useState(initial)
+    
 
     const restar = () =>{
         if(count > initial){

@@ -1,21 +1,14 @@
 import React from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useCart } from '../context/CartContext';
 
-const CartWidget = ({counter}) => {
-
+const CartWidget = () => {
+  const{cartQuantity, cart} = useCart()
   return (
-    <>
-    <ShoppingCartIcon/>
-    <span>{counter}</span>
-
-    </>
-
-
-  /*   <div>
-        <span>🛒</span>
-        <span>{counter}</span>
-    </div> */
-
+    <div>
+        <ShoppingCartIcon/>
+        <span>{cartQuantity() || ''}</span>
+    </div>
   )
 }
 

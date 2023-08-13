@@ -133,7 +133,9 @@ function NavBar() {
                 </MenuItem>
               ))}
           </Box>
-          <CartWidget counter={2}/>
+          <NavLink className='links' to='/cart'>
+            <CartWidget/>
+          </NavLink>
           
         </Toolbar>
       </Container>
