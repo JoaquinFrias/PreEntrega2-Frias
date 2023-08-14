@@ -26,15 +26,7 @@ const ItemDetailContainer = () => {
         .finally(()=> setLoading(false))
     },[])
 
-    /* useEffect(()=>{
-        data
-        .then((res)=> setProductDetail(res.find((item)=> item.id === id)))
-        .catch((error)=> console.log(error))
-        .finally(()=>setLoading(false))
-
-    },[id]) */
     
-
     return (
     <div>
         {loading? <p>cargando...</p> : <ItemDetail productDetail={productDetail}/>}

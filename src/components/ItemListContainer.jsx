@@ -28,23 +28,7 @@ const ItemListContainer = ({saludo, greeting}) =>{
       .finally(()=>setLoading(false))
     },[categoriaId])
     
-    //mock
-    /* useEffect(()=>{
-      setLoading(true)
-      data
-      .then((res)=>{
-        if(categoriaId){
-          setProductList(res.filter((item)=> item.category === categoriaId))
-        }else{
-          setProductList(res)
-        } 
-      })
-      .catch((error)=>console.log(error))
-      .finally(()=> setLoading(false))
-    }, [categoriaId]) */
-
-
-
+    
   return (
     <div>
         <h1>{greeting}</h1>
