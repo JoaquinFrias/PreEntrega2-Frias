@@ -3,6 +3,18 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { addDoc, collection, getFirestore} from "firebase/firestore";
 import { db } from '../firebase/firebase';
+//import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 const Checkout = () => {
@@ -53,44 +65,58 @@ const Checkout = () => {
 	return (
         <div>
             <div>
-                <div>
-                <form>
+                <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' }, }} noValidate autoComplete="off">
                     <div>
-                        <label className="form-label"><b>Nombre</b></label>
-                        <input type="text" className="form-control" onInput={(e) => {setNombre(e.target.value)}} />
+                        <TextField type="text" className="form-control" onInput={(e) => {setNombre(e.target.value)}} id="outlined-basic" label="Nombre" variant="outlined" />
                     </div>
                     <div>
-                        <label><b>E-mail</b></label>
-                        <input type="email" onInput={(e) => {setEmail(e.target.value)}}/>
+                        <TextField type="email" onInput={(e) => {setEmail(e.target.value)}} id="outlined-basic" label="E-mail" variant="outlined" />
                     </div>
                     <div>
-                        <label><b>Telefono</b></label>
-                        <input type="text" onInput={(e) => {setTelefono(e.target.value)}}/>
-                    </div>
-                    </form>
-                <button type="submit" onClick={generarOrden}><b>COMPLETAR COMPRA</b></button>
-                </div>
-                
-                <div>
-                <table>
-                    <tbody>
-                    {cart.map(item => (
-                        <tr key={item.id}>
-                            <td><img src={item.img} alt={item.name} width={100} /></td>
-                            <td><b>{item.name}</b></td>
-                            <td><b>({item.quantity})  ${item.price}</b></td>
-                            <td><b>${item.quantity * item.price}</b></td>
-                        </tr>
-                    ))}
-                    <tr>
-                        <td colSpan={2}></td>
-                        <td><b>Total a pagar</b></td>
-                        <td><b>${cartTotal()}</b></td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
+                        <TextField type="text" onInput={(e) => {setTelefono(e.target.value)}} id="outlined-basic" label="Telefono" variant="outlined" />
+                    </div>      
+                </Box>
+                <Stack spacing={2} direction="row">
+                    <Button type="submit" onClick={generarOrden} variant="outlined"><b>COMPLETAR COMPRA</b></Button>
+                </Stack>
             </div>
+            <div>
+            <TableContainer component={Paper}>
+                <Table sx={{ maxWidth: 0.6, minWidth: 120}} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>imagen</TableCell>
+                            <TableCell align="right">nombre</TableCell>
+                            <TableCell align="right">cantidad</TableCell>
+                            <TableCell align="right">precio</TableCell>
+                            <TableCell align="right">precio x cant</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {cart.map( item => (
+                        <TableRow key={item.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableCell component="th" scope="row"><img src={item.img} alt={item.name} width={100}/></TableCell>
+                            <TableCell align="right">{item.name}</TableCell>
+                            <TableCell align="right">{item.quantity}</TableCell>
+                            <TableCell align="right">${item.price}</TableCell>
+                            <TableCell align="right">${item.quantity * item.price}</TableCell>                            
+                        </TableRow>                        
+                        ))}
+                        <TableRow>
+                            <TableCell rowSpan={3} />
+                            <TableCell align="right" colSpan={3}><b>Total a pagar</b></TableCell>
+                            <TableCell align="right">${cartTotal()}</TableCell>
+                            
+                            
+                        </TableRow>
+                       
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+                
+            </div>
+            
             <div>
                 <div>
                     {ordenId ? <div role="alert">
@@ -99,7 +125,7 @@ const Checkout = () => {
                     </div> : ""}
                     <div>
             {mostrarBoton && (
-                <Link to={"/"}><b>VOLVER AL INICIO</b></Link>)}
+                <Link to={"/"}><Button variant='outlined'>VOLVER AL INICIO</Button></Link>)}
             </div>
                 </div>
             </div>

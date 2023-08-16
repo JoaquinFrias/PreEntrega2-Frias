@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import ItemCount from './ItemCount'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 const ItemDetail = ({productDetail}) => {
     const [count, setCount] = useState(1)
@@ -31,11 +33,11 @@ const ItemDetail = ({productDetail}) => {
         <p>${price}</p>
         { !compra 
         ? <ItemCount stock={stock} initial={1} onAdd={onAdd} count={count} setCount={setCount}/>
-        : <div style={{display:'flex', justifyContent: 'space-around', alignItems:'center'}}>
-            <button className='btn btn-warning' onClick={()=> navegar ('/')}>Seguir Comprando</button>
-            <button className='btn btn-info' onClick={()=> navegar ('/cart')}>Ir al Carrito</button>
+        : <Stack spacing={2} direction="row" style={{display:'flex', justifyContent: 'space-around', alignItems:'center'}}>
+            <Button variant="outlined" onClick={()=> navegar ('/')}>Seguir Comprando</Button>
+            <Button variant="outlined" onClick={()=> navegar ('/cart')}>Ir al Carrito</Button>
 
-          </div> }
+          </Stack> }
     </div>
   )
 }
